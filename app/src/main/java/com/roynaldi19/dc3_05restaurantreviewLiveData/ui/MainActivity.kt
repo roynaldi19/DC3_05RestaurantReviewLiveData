@@ -9,12 +9,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.roynaldi19.dc3_05restaurantreviewLiveData.data.response.CustomerReviewsItem
 import com.roynaldi19.dc3_05restaurantreviewLiveData.data.response.Restaurant
 import com.roynaldi19.dc3_05restaurantreviewlivedata.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +41,12 @@ class MainActivity : AppCompatActivity() {
             setReviewData(consumerReviews)
         }
 
+        viewModel.snackbarText.observe(this) {
+            it.getContentIfNotHandled()?.let { snackBartext ->
+                Snackbar.make(window.decorView.rootView, snackBartext, Snackbar.LENGTH_SHORT).show()
+            }
+        }
+
         val layoutManager = LinearLayoutManager(this)
         binding.rvReview.layoutManager = layoutManager
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
@@ -61,7 +67,6 @@ class MainActivity : AppCompatActivity() {
             .load("https://restaurant-api.dicoding.dev/images/large/${restaurant.pictureId}")
             .into(binding.ivPicture)
     }
-
 
     private fun setReviewData(consumerReviews: List<CustomerReviewsItem>) {
         val adapter = ReviewAdapter()

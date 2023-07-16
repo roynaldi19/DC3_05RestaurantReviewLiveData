@@ -9,7 +9,6 @@ import com.roynaldi19.dc3_05restaurantreviewLiveData.data.response.CustomerRevie
 import com.roynaldi19.dc3_05restaurantreviewlivedata.databinding.ItemReviewBinding
 
 class ReviewAdapter : ListAdapter<CustomerReviewsItem, ReviewAdapter.MyViewHolder>(DIFF_CALLBACK) {
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding = ItemReviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(binding)
